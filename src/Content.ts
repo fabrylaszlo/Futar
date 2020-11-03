@@ -1,6 +1,7 @@
 ﻿import fs from "fs";
 import http from "http";
 import url from "url";
+import Futar from "./Megoldás";
 
 export default class Content {
     public content(req: http.IncomingMessage, res: http.ServerResponse): void {
@@ -40,7 +41,7 @@ export default class Content {
         res.write(`Te ${korod} éves vagy!\n`);
 
         // <---- Fejezd be a kódolást
-
+        res.write('<input type="text">');
         res.write("</pre></form>");
         res.write("</body></html>");
         res.end();
