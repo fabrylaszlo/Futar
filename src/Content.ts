@@ -21,7 +21,9 @@ export default class Content {
         // Kezd a kódolást innen -->
 
         const megold: Megoldás = new Megoldás("tavok.txt");
-        res.write(`<p>\t1.nap 1.fuvar: ${megold.hetielso}km</p>`);
+        res.write(`<p>1.nap 1.fuvar: ${megold.hetielso}km</p>`);
+        res.write(`<p>A hét utolsó fuvara: ${megold.hetiutolso.szamol}km</p>`);
+        res.write(`<p>${megold.szabadnap}</p>`);
         // <---- Fejezd be a kódolást
         res.write('<input type="text">');
         res.write("</pre></form>");
