@@ -1,16 +1,10 @@
 ﻿import fs from "fs";
 import http from "http";
 import url from "url";
-import Futar from "./Megoldás";
+import Megoldás from "./Megoldás";
 
 export default class Content {
     public content(req: http.IncomingMessage, res: http.ServerResponse): void {
-        // favicon.ico kérés kiszolgálása:
-        if (req.url === "/favicon.ico") {
-            res.writeHead(200, { "Content-Type": "image/x-icon" });
-            fs.createReadStream("favicon.ico").pipe(res);
-            return;
-        }
         // Weboldal inicializálása + head rész:
         res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
         res.write("<!DOCTYPE html>");
@@ -26,20 +20,8 @@ export default class Content {
 
         // Kezd a kódolást innen -->
 
-        res.write("Egyszerű Hello World!\n");
-
-        // Tetszőleges html teg-ek és attribútumok beépítése:
-        res.write("<span style='color: blue;'><i>Színes és dőlt Hello World!'</i></span>\n");
-
-        // Próbáljuk számra konvertálni a "kor" paraméter (http://localhost:8080/?kor=16) értékét:
-        let korod: number = parseInt(params.kor as string);
-        // Ha nincs "kor" paraméter megadva, vagy nem lehet számra konvertálni értékét,
-        // akkor a "korod" változóba NaN érték kerül, ilyenkor legyen 18 év az értéke:
-        if (isNaN(korod)) korod = 18;
-
-        res.write(`Kérem a korod: <input type='number' name='kor' value=${korod} style='max-width:100px;' onChange='this.form.submit();'>\n`);
-        res.write(`Te ${korod} éves vagy!\n`);
-
+        const megold: Megoldás = new Megoldás("tavok.txt");
+        res.write(`<p>\t1.nap 1.fuvar: ${megold.hetielso}km</p>`);
         // <---- Fejezd be a kódolást
         res.write('<input type="text">');
         res.write("</pre></form>");
