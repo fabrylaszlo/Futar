@@ -1,4 +1,5 @@
-﻿import fs from "fs";
+﻿import { ENGINE_METHOD_ALL } from "constants";
+import fs from "fs";
 import http from "http";
 import url from "url";
 import Megoldás from "./Megoldás";
@@ -12,7 +13,7 @@ export default class Content {
         res.write("<head>");
         res.write("<style>input, pre {font-family:monospace; font-size:1em; font-weight:bold;}</style>");
         res.write("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        res.write("<title>Jedlik Ts Template</title>");
+        res.write("<title>Futár</title>");
         res.write("</head>");
         res.write("<body><form><pre class='m-3'>");
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,7 +24,12 @@ export default class Content {
         const megold: Megoldás = new Megoldás("tavok.txt");
         res.write(`<p>1.nap 1.fuvar: ${megold.hetielso}km</p>`);
         res.write(`<p>A hét utolsó fuvara: ${megold.hetiutolso.szamol}km</p>`);
-        res.write(`<p>${megold.szabadnap}</p>`);
+        res.write(`<p>${megold.szabadnap}-i napon nem dolgozott</p>`);
+        res.write(`<p>A legtöbb fuvar ${megold.Legtöbbfuvar}-i napon történt</p>`);
+        megold.tekerés.forEach(x => {
+            res.write(`<p>${x}</p>`);
+        });
+
         // <---- Fejezd be a kódolást
         res.write('<input type="text">');
         res.write("</pre></form>");

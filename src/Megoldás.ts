@@ -1,4 +1,6 @@
+import { AsyncLocalStorage } from "async_hooks";
 import fs from "fs";
+import { resolve } from "path";
 import Futar from "./Futar";
 
 export default class Megoldás {
@@ -31,58 +33,81 @@ export default class Megoldás {
         });
         return { szamol, max };
     }
+    public melyiknap(be: number): any {
+        switch (be) {
+            case 1:
+                return "Hétfő";
+                break;
+            case 2:
+                return "Kedd";
+                break;
+            case 3:
+                return "Szerda";
+                break;
+            case 4:
+                return "Csütörtök";
+                break;
+            case 5:
+                return "Péntek";
+                break;
+            case 6:
+                return "Szombat";
+                break;
+            case 7:
+                return "Vasárnap";
+                break;
+        }
+    }
     public get szabadnap(): any {
-        let egy: boolean = false;
-        let ketto: boolean = false;
-        let harom: boolean = false;
-        let negy: boolean = false;
-        let ot: boolean = false;
-        let hat: boolean = false;
-        let het: boolean = false;
-        this.Tavok.forEach(element => {
-            if (element.egy == 1) {
-                egy = true;
+        let igaze: boolean = false;
+
+        for (let i = 1; i < 8; i++) {
+            this.Tavok.forEach(element => {
+                if (i == element.egy) {
+                    igaze = true;
+                }
+            });
+            if (igaze == false) {
+                return this.melyiknap(i);
+                break;
             }
-            if (element.egy == 2) {
-                ketto = true;
+            igaze = false;
+        }
+    }
+    public get Legtöbbfuvar(): any {
+        let mennyi: number = 0;
+        let max: number = 0;
+        let melyiknap: number = 0;
+        for (let i = 0; i < 8; i++) {
+            this.Tavok.forEach(element => {
+                if (element.egy == i) {
+                    mennyi += element.ketto;
+                    melyiknap = element.egy;
+                }
+            });
+            if (mennyi > max) {
+                max = mennyi;
+                melyiknap = i;
             }
-            if (element.egy == 3) {
-                harom = true;
+        }
+        return this.melyiknap(melyiknap);
+    }
+    public get tekerés(): any[] {
+        let mennyi: number = 0;
+        let tömb: string[] = [];
+        for (let i = 1; i < 8; i++) {
+            this.Tavok.forEach(element => {
+                if (element.egy == i) {
+                    mennyi += element.harom;
+                }
+            });
+            if (mennyi != 0) {
+                tömb[i] = i + ". nap:" + mennyi + " km" + "\n";
             }
-            if (element.egy == 4) {
-                negy = true;
-            }
-            if (element.egy == 5) {
-                ot = true;
-            }
-            if (element.egy == 6) {
-                hat = true;
-            }
-            if (element.egy == 7) {
-                het = true;
-            }
-        });
-        if (egy == false) {
-            return "Hétfőn nem dolgozott";
+
+            mennyi = 0;
         }
-        if (ketto == false) {
-            return "Kedden nem dolgozott";
-        }
-        if (harom == false) {
-            return "Szerdán nem dolgozott";
-        }
-        if (negy == false) {
-            return "Csütörtökön nem dolgozott";
-        }
-        if (ot == false) {
-            return "Pénteken nem dolgozott";
-        }
-        if (hat == false) {
-            return "Szombaton nem dolgozott";
-        }
-        if (het == false) {
-            return "Vasárnap nem dolgozott";
-        }
+        return tömb;
     }
 
     constructor(forrás: string) {
