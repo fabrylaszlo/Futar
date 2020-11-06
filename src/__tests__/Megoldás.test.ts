@@ -5,7 +5,7 @@ describe("megoldasOsztalyTesztelese", () => {
     it("elsoFeladatTeszt", () => {
         expect(instance.hetielso).toBe(3);
     });
-        /*it("masodikFeladatTeszt", async () => {
+    it("masodikFeladatTeszt", async () => {
         expect(instance.hetiutolso.szamol).toBe(25);
     });
     it("harmadikFeladatTeszt", async () => {
@@ -13,5 +13,5 @@ describe("megoldasOsztalyTesztelese", () => {
     });
     it("negyedikFeladatTeszt", async () => {
         expect(instance.Legtöbbfuvar).toBe("Vasárnap");
-    });*/
+    });
 });
