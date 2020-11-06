@@ -26,12 +26,25 @@ export default class Content {
         res.write(`<p>A hét utolsó fuvara: ${megold.hetiutolso.szamol}km</p>`);
         res.write(`<p>${megold.szabadnap}-i napon nem dolgozott</p>`);
         res.write(`<p>A legtöbb fuvar ${megold.Legtöbbfuvar}-i napon történt</p>`);
+        res.write(`7.feladat:\n`);
+        res.write(`<input type="number" name="ertek" placeholder="1-30" OnChange="this.form.submit()" value="${params.ertek}" />\n`);
+
+        let beertek: string = params.ertek as string;
+
+        res.write(`${megold.input(beertek)}Ft\n\n`);
+
+
+
         megold.tekerés.forEach(x => {
+            res.write(`<p>${x}</p>`);
+        });
+        res.write(`8.feladat a fájlbaírás megtörtént! Tartalma:`);
+        megold.dijazas.forEach(x => {
             res.write(`<p>${x}</p>`);
         });
 
         // <---- Fejezd be a kódolást
-        res.write('<input type="text">');
+
         res.write("</pre></form>");
         res.write("</body></html>");
         res.end();

@@ -34,29 +34,8 @@ export default class Megoldás {
         return { szamol, max };
     }
     public melyiknap(be: number): any {
-        switch (be) {
-            case 1:
-                return "Hétfő";
-                break;
-            case 2:
-                return "Kedd";
-                break;
-            case 3:
-                return "Szerda";
-                break;
-            case 4:
-                return "Csütörtök";
-                break;
-            case 5:
-                return "Péntek";
-                break;
-            case 6:
-                return "Szombat";
-                break;
-            case 7:
-                return "Vasárnap";
-                break;
-        }
+        let tömb: string[] = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"];
+        return tömb[be - 1];
     }
     public get szabadnap(): any {
         let igaze: boolean = false;
@@ -107,10 +86,39 @@ export default class Megoldás {
 
             mennyi = 0;
         }
+
+        return tömb;
+    }
+    public input(bekert: string): any {
+        let szam: number = parseInt(bekert)
+        if (szam >= 1 && szam <= 2) {
+            return 500;
+        }
+        if (szam >= 3 && szam <= 5) {
+            return 700;
+        }
+        if (szam >= 6 && szam <= 10) {
+            return 900;
+        }
+        if (szam >= 11 && szam <= 20) {
+            return 1400;
+        }
+        if (szam >= 21 && szam <= 30) {
+            return 2000;
+        }
+
+    }
+    public get dijazas(): any[] {
+        this.Tavok.sort();
+        let tömb: string[] = [];
+        this.Tavok.forEach(element => {
+            tömb.push(element.egy + ". nap " + element.ketto + ". út:" + this.input(element.harom.toString()) + "Ft");
+        });
         return tömb;
     }
 
-    constructor(forrás: string) {
+    constructor(forrás: string
+    ) {
         fs.readFileSync(forrás)
             .toString()
             .split("\n")
