@@ -1,10 +1,7 @@
-import { parse } from "path";
-
 export default class Futar {
     private _egy: number;
     private _ketto: number;
     private _harom: number;
-
     public get egy(): number {
         return this._egy;
     }

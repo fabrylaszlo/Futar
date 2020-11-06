@@ -1,11 +1,8 @@
-import { AsyncLocalStorage } from "async_hooks";
 import fs from "fs";
-import { resolve } from "path";
 import Futar from "./Futar";
 
 export default class Megoldás {
     private Tavok: Futar[] = [];
-
     public get hetielso(): number {
         let szamol: number = 0;
         let megájj: boolean = true;
@@ -83,10 +80,8 @@ export default class Megoldás {
             if (mennyi != 0) {
                 tömb[i] = i + ". nap:" + mennyi + " km" + "\n";
             }
-
             mennyi = 0;
         }
-
         return tömb;
     }
     public input(bekert: string): any {
@@ -106,11 +101,9 @@ export default class Megoldás {
         if (szam >= 21 && szam <= 30) {
             return 2000;
         }
-
     }
     public get dijazas(): any[] {
         this.Tavok.sort();
-
         let tömb: string[] = [];
         this.Tavok.forEach(element => {
             tömb.push(element.egy + ". nap " + element.ketto + ". út:" + this.input(element.harom.toString()) + "Ft");
@@ -120,8 +113,6 @@ export default class Megoldás {
         tömb.forEach(element => {
             stribg += element + "\n";
         });
-
-
         fs.writeFileSync('dijazas.txt', stribg)
         return tömb;
     }
@@ -133,9 +124,8 @@ export default class Megoldás {
         return fiezetesosszeg;
     }
 
-    constructor(forrás: string
-    ) {
-        fs.readFileSync(forrás)
+    constructor() {
+        fs.readFileSync("tavok.txt")
             .toString()
             .split("\n")
             .forEach(i => {
