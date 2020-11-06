@@ -110,14 +110,29 @@ export default class Megoldás {
     }
     public get dijazas(): any[] {
         this.Tavok.sort();
+
         let tömb: string[] = [];
         this.Tavok.forEach(element => {
             tömb.push(element.egy + ". nap " + element.ketto + ". út:" + this.input(element.harom.toString()) + "Ft");
         });
+        tömb.sort();
+        let stribg: string = "";
+        tömb.forEach(element => {
+            stribg += element + "\n";
+        });
+
+
+        fs.writeFileSync('dijazas.txt', stribg)
         return tömb;
     }
+    public get fiezetes(): any {
+        let fiezetesosszeg: number = 0;
+        this.Tavok.forEach(element => {
+            fiezetesosszeg += this.input(element.harom.toString());
+        });
+        return fiezetesosszeg;
+    }
 
-    
     constructor(forrás: string
     ) {
         fs.readFileSync(forrás)

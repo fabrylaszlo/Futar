@@ -42,7 +42,7 @@ export default class Content {
         megold.dijazas.forEach(x => {
             res.write(`<p>${x}</p>`);
         });
-
+        res.write(`<p>9.feladat ${megold.fiezetes} Ft volt a heti fizetése</p>`);
         // <---- Fejezd be a kódolást
 
         res.write("</pre></form>");
