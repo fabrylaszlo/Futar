@@ -117,6 +117,7 @@ export default class Megoldás {
         return tömb;
     }
 
+    
     constructor(forrás: string
     ) {
         fs.readFileSync(forrás)
